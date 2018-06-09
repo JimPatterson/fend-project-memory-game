@@ -13,16 +13,22 @@
  */
 
 
-//displayCards(possible_cards);
 /*
  * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
+ *  - display the card's symbol (put this functionality in another function
+ *    that you call from this one)
+ *  - add the card to a *list* of "open" cards (put this functionality in
+ *    another function that you call from this one)
  *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
+ *    + if the cards do match, lock the cards in the open position (put this
+ *      functionality in another function that you call from this one)
+ *    + if the cards do not match, remove the cards from the list and hide the
+ *      card's symbol (put this functionality in another function that you call
+ *      from this one)
+ *    + increment the move counter and display it on the page (put this
+ *      functionality in another function that you call from this one)
+ *    + if all cards have matched, display a message with the final score (put
+ *      this functionality in another function that you call from this one)
  */
 function playGame() {
 	// variables used to tell when the game is over
@@ -70,53 +76,154 @@ function playGame() {
 
 	/*  Extra card sets to be used in the next version of the game.
 
-		const chessCards = ['fas fa-chess', 'fas fa-chess-bishop',
-			'fas fa-chess-board', 'fas fa-chess-king',
-			'fas fa-chess-knight', 'fas fa-chess-pawn', 'fas fa-chess-queen',
+		const chessCards = [
+			'fas fa-chess',
+			'fas fa-chess-bishop',
+			'fas fa-chess-board',
+			'fas fa-chess-king',
+			'fas fa-chess-knight',
+			'fas fa-chess-pawn',
+			'fas fa-chess-queen',
 			'fas fa-chess-rook'
 		];
-		const geekCards = ['fab fa-android', 'fab fa-gitkraken', 'fab fa-linux',
-			'fab fa-mandalorian', 'fab fa-nintendo-switch', 'fab fa-phoenix-squadron',
-			'fab fa-python', 'fab fa-reddit-alien', 'fab fa-steam',
+		const geekCards = [
+			'fab fa-android',
+			'fab fa-gitkraken',
+			'fab fa-linux',
+			'fab fa-mandalorian',
+			'fab fa-nintendo-switch',
+			'fab fa-phoenix-squadron',
+			'fab fa-python',
+			'fab fa-reddit-alien',
+			'fab fa-steam',
 			'fab fa-wolf-pack-battalion'
 		];
-		const starWarsCards = ['fab fa-empire', 'fab fa-galactic-republic',
-			'fab fa-galactic-senate', 'fab fa-jedi-order', 'fab fa-old-republic',
-			'fab fa-rebel', 'fab fa-sith', 'fab fa-trade-federation'
+		const starWarsCards = [
+			'fab fa-empire',
+			'fab fa-galactic-republic',
+			'fab fa-galactic-senate',
+			'fab fa-jedi-order',
+			'fab fa-old-republic',
+			'fab fa-rebel',
+			'fab fa-sith',
+			'fab fa-trade-federation'
 		];
-		*/
+	*/
 
-	const possibleCards = ['fas fa-allergies', 'fas fa-ambulance',
-		'fab fa-angellist', 'fas fa-at', 'fas fa-balance-scale', 'fas fa-bath',
-		'fas fa-bell', 'fas fa-bicycle', 'fas fa-binoculars', 'fas fa-birthday-cake',
-		'fas fa-bomb', 'fas fa-briefcase-medical', 'fas fa-bug', 'fas fa-bullhorn',
-		'fas fa-bullseye', 'fas fa-bus', 'fas fa-calculator', 'fas fa-camera-retro',
-		'fas fa-car', 'fas fa-child', 'fas fa-clock', 'fas fa-cloud', 'fas fa-code',
-		'fas fa-coffee', 'fas fa-compass', 'fas fa-cogs', 'fas fa-couch',
-		'fas fa-crow', 'fas fa-crown', 'fas fa-cubes', 'fas fa-cut', 'fas fa-dna',
-		'fas fa-dove', 'fab fa-earlybirds', 'fas fa-eject', 'fas fa-eraser',
-		'fas fa-eye-dropper', 'fas fa-feather', 'fas fa-fighter-jet', 'fas fa-film',
-		'fas fa-fire-extinguisher', 'fas fa-first-aid', 'fas fa-flask', 'fas fa-fly',
-		'fab fa-font-awesome', 'fas fa-frog', 'fas fa-gas-pump', 'fas fa-gift',
-		'fab fa-grav', 'fab fa-grunt', 'fas fa-heart', 'fas fa-heartbeat',
-		'fas fa-helicopter', 'fas fa-home', 'fas fa-kiwi-bird', 'fas fa-leaf',
-		'fas fa-lemon', 'fas fa-lightbulb', 'fas fa-magic', 'fas fa-meh',
-		'fas fa-motorcycle', 'fas fa-music', 'fas fa-newspaper',
-		'fas fa-paint-brush', 'fas fa-palette', 'fas fa-parachute-box',
-		'fas fa-paw', 'fab fa-pied-piper-alt', 'fab fa-pied-piper-hat',
-		'fas fa-piggy-bank', 'fas fa-plug', 'fas fa-puzzle-piece', 'fas fa-road',
-		'fas fa-robot', 'fas fa-rocket', 'fas fa-school', 'fas fa-ship',
-		'fas fa-shipping-fast', 'fas fa-shoe-prints', 'fas fa-skull',
-		'fas fa-smile', 'fas fa-snowflake', 'fas fa-space-shuttle', 'fas fa-star',
-		'fab fa-sticker-mule', 'fas fa-stopwatch', 'fas fa-store', 'fas fa-sun',
-		'fas fa-table-tennis', 'fas fa-taxi', 'fas fa-thermometer',
-		'fas fa-thumbs-up', 'fas fa-thumbtack', 'fas fa-ticket-alt', 'fas fa-train',
-		'fas fa-tree', 'fas fa-trophy', 'fas fa-truck', 'fas fa-tshirt',
-		'fas fa-university', 'fas fa-user-astronaut', 'fas fa-user-graduate',
-		'fas fa-user-md', 'fas fa-user-secret', 'fas fa-walking',
-		'fas fa-warehouse', 'fas fa-wheelchair', 'fas fa-wifi', 'fas fa-wrench',
-		'fas fa-anchor', 'fas fa-x-ray'
+	const possibleCards = [
+		'fas fa-allergies',
+		'fas fa-ambulance',
+		'fab fa-angellist',
+		'fas fa-at',
+		'fas fa-balance-scale',
+		'fas fa-bath',
+		'fas fa-bell',
+		'fas fa-bicycle',
+		'fas fa-binoculars',
+		'fas fa-birthday-cake',
+		'fas fa-bomb',
+		'fas fa-briefcase-medical',
+		'fas fa-bug',
+		'fas fa-bullhorn',
+		'fas fa-bullseye',
+		'fas fa-bus',
+		'fas fa-calculator',
+		'fas fa-camera-retro',
+		'fas fa-car',
+		'fas fa-child',
+		'fas fa-clock',
+		'fas fa-cloud',
+		'fas fa-code',
+		'fas fa-coffee',
+		'fas fa-compass',
+		'fas fa-cogs',
+		'fas fa-couch',
+		'fas fa-crow',
+		'fas fa-crown',
+		'fas fa-cubes',
+		'fas fa-cut',
+		'fas fa-dna',
+		'fas fa-dove',
+		'fab fa-earlybirds',
+		'fas fa-eject',
+		'fas fa-eraser',
+		'fas fa-eye-dropper',
+		'fas fa-feather',
+		'fas fa-fighter-jet',
+		'fas fa-film',
+		'fas fa-fire-extinguisher',
+		'fas fa-first-aid',
+		'fas fa-flask',
+		'fas fa-fly',
+		'fab fa-font-awesome',
+		'fas fa-frog',
+		'fas fa-gas-pump',
+		'fas fa-gift',
+		'fab fa-grav',
+		'fab fa-grunt',
+		'fas fa-heart',
+		'fas fa-heartbeat',
+		'fas fa-helicopter',
+		'fas fa-home',
+		'fas fa-kiwi-bird',
+		'fas fa-leaf',
+		'fas fa-lemon',
+		'fas fa-lightbulb',
+		'fas fa-magic',
+		'fas fa-meh',
+		'fas fa-motorcycle',
+		'fas fa-music',
+		'fas fa-newspaper',
+		'fas fa-paint-brush',
+		'fas fa-palette',
+		'fas fa-parachute-box',
+		'fas fa-paw',
+		'fab fa-pied-piper-alt',
+		'fab fa-pied-piper-hat',
+		'fas fa-piggy-bank',
+		'fas fa-plug',
+		'fas fa-puzzle-piece',
+		'fas fa-road',
+		'fas fa-robot',
+		'fas fa-rocket',
+		'fas fa-school',
+		'fas fa-ship',
+		'fas fa-shipping-fast',
+		'fas fa-shoe-prints',
+		'fas fa-skull',
+		'fas fa-smile',
+		'fas fa-snowflake',
+		'fas fa-space-shuttle',
+		'fas fa-star',
+		'fab fa-sticker-mule',
+		'fas fa-stopwatch',
+		'fas fa-store',
+		'fas fa-sun',
+		'fas fa-table-tennis',
+		'fas fa-taxi',
+		'fas fa-thermometer',
+		'fas fa-thumbs-up',
+		'fas fa-thumbtack',
+		'fas fa-ticket-alt',
+		'fas fa-train',
+		'fas fa-tree',
+		'fas fa-trophy',
+		'fas fa-truck',
+		'fas fa-tshirt',
+		'fas fa-university',
+		'fas fa-user-astronaut',
+		'fas fa-user-graduate',
+		'fas fa-user-md',
+		'fas fa-user-secret',
+		'fas fa-walking',
+		'fas fa-warehouse',
+		'fas fa-wheelchair',
+		'fas fa-wifi',
+		'fas fa-wrench',
+		'fas fa-anchor',
+		'fas fa-x-ray',
 	];
+
 	// Pick eight cards out of a lists
 	function pickCards(array) {
 		let numCards = array.length;
@@ -126,7 +233,8 @@ function playGame() {
 		for (let i = 0; i < maxPairs; ++i) {
 			currentIndex = Math.floor(Math.random() * numCards);
 			if (trimmedArray.includes(array[currentIndex])) {
-				--i; // If the card already exists in the trimmedArray, then decrement i
+				--i; // If the card already exists in the trimmedArray, then
+					 // decrement i so that we go around again
 			} else {
 				trimmedArray[i] = array[currentIndex];
 			}
@@ -137,10 +245,12 @@ function playGame() {
 
 	function doubleArray(array) {
 		const newArray = [];
+
 		for (let i = 0; i < array.length; ++i) {
 			newArray.push(array[i]);
 			newArray.push(array[i]);
 		}
+
 		return newArray;
 	}
 
@@ -185,25 +295,27 @@ function playGame() {
 		minutes = 0;
 		mins = (minutes < 10) ? (`0${minutes} : `) : (`${minutes} : `);
 		secs = (seconds < 10) ? (`0${seconds}`) : (`${seconds}`);
+
 		// display the stopwatch
 		document.getElementById('timer').textContent = `Time: ${mins}${secs}`;
-
 	}
-	// startTimer())
 
 	function runTimer() {
 		if (seconds === 60) {
 			seconds = 0;
 			minutes = minutes + 1;
 		}
+
 		/* you use the javascript tenary operator to format how the minutes
 		   should look and add 0 to minutes if less than 10 */
 		mins = (minutes < 10) ? (`0${minutes} : `) : (`${minutes} : `);
 		secs = (seconds < 10) ? (`0${seconds}`) : (`${seconds}`);
+
 		// display the stopwatch
 		document.getElementById('timer').textContent = `Time: ${mins}${secs}`;
-		/* call the seconds counter after displaying the stop watch and increment
-		seconds by +1 to keep it counting */
+
+		/* call the seconds counter after displaying the stop watch and
+		 * increment seconds by +1 to keep it counting */
 		seconds++;
 	}
 
@@ -213,14 +325,15 @@ function playGame() {
 		// reset the stop watch
 		seconds = 0;
 		minutes = 0;
+
 		secs = '0' + seconds;
 		mins = '0' + minutes + ': ';
+
 		/* clear the stop watch using the setInterval( )
 		   return value 'timer' as ID */
 		clearInterval(timer);
 		return time;
 	}
-	// stopTime()
 
 	// Check to see if the user has a match
 	function check(array) {
@@ -237,7 +350,6 @@ function playGame() {
 			array.pop();
 		}
 	}
-
 
 	// Show the clicked cards
 	function showCard(currentCard) {
@@ -284,9 +396,9 @@ function playGame() {
 			</ul>
 			<p>You earned ${starCount} stars.</p>`
 		)
+
 		winDialog.showModal();
 		unmatchedPairs = maxPairs;
-
 	}
 
 	function invalidClick(currentCard, inTimeout) {
@@ -319,9 +431,11 @@ function playGame() {
 		moveCounter = 0;
 		moves.text(`${moveCounter}`);
 		startTimer();
+
 		timer = setInterval(function() {
 			runTimer();
 		}, 1000);
+
 		if (starCount < maxStars) {
 			resetStars();
 		}
@@ -356,8 +470,8 @@ function playGame() {
 
 		currentCards.push(currentCard);
 		if (currentCards.length === 2) {
-
 			matched = check(currentCards);
+
 			if (matched) {
 				currentCards[0].addClass('match');
 				currentCards[1].addClass('match');
@@ -368,6 +482,7 @@ function playGame() {
 				}
 			} else {
 				inTimeout = true;
+
 				setTimeout(function() {
 					for (let i = 0; i < currentCards.length; ++i) {
 						currentCards[i].removeClass('up');
@@ -376,18 +491,14 @@ function playGame() {
 					clearArray(currentCards);
 					inTimeout = false;
 				}, 1000);
-
 			}
-
 		}
-
 	});
 
 	restart.on('click', function() {
 		clearDeck();
 		startGame(possibleCards);
 	});
-
 }
 
 
