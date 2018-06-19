@@ -1,0 +1,2 @@
+GOPATH=~/gocode go get -u github.com/yannk/simplehttpserver
+~/gocode/bin/simplehttpserver

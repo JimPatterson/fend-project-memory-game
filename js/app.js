@@ -1,3 +1,6 @@
+import * as Cards from "./Cards.js";
+import * as GameLib from "./GameLib.js";
+
 /*
  * Create a list that holds all of your cards
  */
@@ -50,12 +53,9 @@ function playGame() {
 	let inTimeout = false;
 
 	// Variables used to implement a timer
-	let seconds = 0;
-	let minutes = 0;
-	let secs = "";
-	let mins = "";
-	let time = "";
+	var gameStart;
 	let timer;
+	const timerEl = document.getElementById('timer');
 
 	// variables used to implement the star rating system
 	const maxStars = 3;
@@ -74,265 +74,68 @@ function playGame() {
 	// Selects the restart area, when a player wants to start a new game.
 	const restart = $('#restart');
 
-	/*  Extra card sets to be used in the next version of the game.
+	function displayCards(cardSet) {
+		let cards;
 
-		const chessCards = [
-			'fas fa-chess',
-			'fas fa-chess-bishop',
-			'fas fa-chess-board',
-			'fas fa-chess-king',
-			'fas fa-chess-knight',
-			'fas fa-chess-pawn',
-			'fas fa-chess-queen',
-			'fas fa-chess-rook'
-		];
-		const geekCards = [
-			'fab fa-android',
-			'fab fa-gitkraken',
-			'fab fa-linux',
-			'fab fa-mandalorian',
-			'fab fa-nintendo-switch',
-			'fab fa-phoenix-squadron',
-			'fab fa-python',
-			'fab fa-reddit-alien',
-			'fab fa-steam',
-			'fab fa-wolf-pack-battalion'
-		];
-		const starWarsCards = [
-			'fab fa-empire',
-			'fab fa-galactic-republic',
-			'fab fa-galactic-senate',
-			'fab fa-jedi-order',
-			'fab fa-old-republic',
-			'fab fa-rebel',
-			'fab fa-sith',
-			'fab fa-trade-federation'
-		];
-	*/
-
-	const possibleCards = [
-		'fas fa-allergies',
-		'fas fa-ambulance',
-		'fab fa-angellist',
-		'fas fa-at',
-		'fas fa-balance-scale',
-		'fas fa-bath',
-		'fas fa-bell',
-		'fas fa-bicycle',
-		'fas fa-binoculars',
-		'fas fa-birthday-cake',
-		'fas fa-bomb',
-		'fas fa-briefcase-medical',
-		'fas fa-bug',
-		'fas fa-bullhorn',
-		'fas fa-bullseye',
-		'fas fa-bus',
-		'fas fa-calculator',
-		'fas fa-camera-retro',
-		'fas fa-car',
-		'fas fa-child',
-		'fas fa-clock',
-		'fas fa-cloud',
-		'fas fa-code',
-		'fas fa-coffee',
-		'fas fa-compass',
-		'fas fa-cogs',
-		'fas fa-couch',
-		'fas fa-crow',
-		'fas fa-crown',
-		'fas fa-cubes',
-		'fas fa-cut',
-		'fas fa-dna',
-		'fas fa-dove',
-		'fab fa-earlybirds',
-		'fas fa-eject',
-		'fas fa-eraser',
-		'fas fa-eye-dropper',
-		'fas fa-feather',
-		'fas fa-fighter-jet',
-		'fas fa-film',
-		'fas fa-fire-extinguisher',
-		'fas fa-first-aid',
-		'fas fa-flask',
-		'fas fa-fly',
-		'fab fa-font-awesome',
-		'fas fa-frog',
-		'fas fa-gas-pump',
-		'fas fa-gift',
-		'fab fa-grav',
-		'fab fa-grunt',
-		'fas fa-heart',
-		'fas fa-heartbeat',
-		'fas fa-helicopter',
-		'fas fa-home',
-		'fas fa-kiwi-bird',
-		'fas fa-leaf',
-		'fas fa-lemon',
-		'fas fa-lightbulb',
-		'fas fa-magic',
-		'fas fa-meh',
-		'fas fa-motorcycle',
-		'fas fa-music',
-		'fas fa-newspaper',
-		'fas fa-paint-brush',
-		'fas fa-palette',
-		'fas fa-parachute-box',
-		'fas fa-paw',
-		'fab fa-pied-piper-alt',
-		'fab fa-pied-piper-hat',
-		'fas fa-piggy-bank',
-		'fas fa-plug',
-		'fas fa-puzzle-piece',
-		'fas fa-road',
-		'fas fa-robot',
-		'fas fa-rocket',
-		'fas fa-school',
-		'fas fa-ship',
-		'fas fa-shipping-fast',
-		'fas fa-shoe-prints',
-		'fas fa-skull',
-		'fas fa-smile',
-		'fas fa-snowflake',
-		'fas fa-space-shuttle',
-		'fas fa-star',
-		'fab fa-sticker-mule',
-		'fas fa-stopwatch',
-		'fas fa-store',
-		'fas fa-sun',
-		'fas fa-table-tennis',
-		'fas fa-taxi',
-		'fas fa-thermometer',
-		'fas fa-thumbs-up',
-		'fas fa-thumbtack',
-		'fas fa-ticket-alt',
-		'fas fa-train',
-		'fas fa-tree',
-		'fas fa-trophy',
-		'fas fa-truck',
-		'fas fa-tshirt',
-		'fas fa-university',
-		'fas fa-user-astronaut',
-		'fas fa-user-graduate',
-		'fas fa-user-md',
-		'fas fa-user-secret',
-		'fas fa-walking',
-		'fas fa-warehouse',
-		'fas fa-wheelchair',
-		'fas fa-wifi',
-		'fas fa-wrench',
-		'fas fa-anchor',
-		'fas fa-x-ray',
-	];
-
-	// Pick eight cards out of a lists
-	function pickCards(array) {
-		let numCards = array.length;
-		let currentIndex;
-		const trimmedArray = [];
-
-		for (let i = 0; i < maxPairs; ++i) {
-			currentIndex = Math.floor(Math.random() * numCards);
-			if (trimmedArray.includes(array[currentIndex])) {
-				--i; // If the card already exists in the trimmedArray, then
-					 // decrement i so that we go around again
-			} else {
-				trimmedArray[i] = array[currentIndex];
-			}
-		}
-
-		return trimmedArray;
-	}
-
-	function doubleArray(array) {
-		const newArray = [];
-
-		for (let i = 0; i < array.length; ++i) {
-			newArray.push(array[i]);
-			newArray.push(array[i]);
-		}
-
-		return newArray;
-	}
-
-	// Shuffle function from http://stackoverflow.com/a/2450976
-	function shuffle(array) {
-		let currentIndex = array.length,
-			temporaryValue, randomIndex;
-
-		while (currentIndex !== 0) {
-			randomIndex = Math.floor(Math.random() * currentIndex);
-			currentIndex -= 1;
-			temporaryValue = array[currentIndex];
-			array[currentIndex] = array[randomIndex];
-			array[randomIndex] = temporaryValue;
-		}
-
-		return array;
-	}
-
-	function displayCards(array) {
-		let newCard = '';
-
-		// If the card list is longer than 8, pick 8 cards for this game.
-		if (array.length > 8) {
-			array = pickCards(array);
-		}
+		// pick 8 cards to play
+		cards = GameLib.randomSetFromList(cardSet, 8);
 
 		// Now create and shuffle an array of 8 matching pairs.
-		array = shuffle(doubleArray(array));
+		cards = GameLib.shuffle([...cards, ...cards]);
+
+		// clear out the existing cards
+		clearDeck();
 
 		// Loop through the array and add the html
-		for (let i = 0; i < array.length; ++i) {
-			newCard = array[i];
+		for (let i = 0; i < cards.length; ++i) {
+			const newCard = cards[i];
 			deck.append(
-				`<li class="card" data-card="${newCard}" data-id="${i}"><i class="${newCard}"></li>`
+				`<li class="card" data-card="${newCard}" data-id="${i}">
+					<i class="${newCard}">
+				</li>`
 			);
 		}
 	}
 
-	function startTimer() {
-		seconds = 0;
-		minutes = 0;
-		mins = (minutes < 10) ? (`0${minutes} : `) : (`${minutes} : `);
-		secs = (seconds < 10) ? (`0${seconds}`) : (`${seconds}`);
-
-		// display the stopwatch
-		document.getElementById('timer').textContent = `Time: ${mins}${secs}`;
+	function formatNumber(num) {
+		return (num < 10)
+			? `0${num}`
+			: `${num}`;
 	}
 
-	function runTimer() {
-		if (seconds === 60) {
-			seconds = 0;
-			minutes = minutes + 1;
-		}
+	function formatElapsed(start) {
+		const now = new Date();
+		const elapsedSecs = (now - start) / 1000;
+		const min = Math.trunc(elapsedSecs / 60);
+		const sec = Math.trunc(elapsedSecs % 60);
 
-		/* you use the javascript tenary operator to format how the minutes
-		   should look and add 0 to minutes if less than 10 */
-		mins = (minutes < 10) ? (`0${minutes} : `) : (`${minutes} : `);
-		secs = (seconds < 10) ? (`0${seconds}`) : (`${seconds}`);
-
-		// display the stopwatch
-		document.getElementById('timer').textContent = `Time: ${mins}${secs}`;
-
-		/* call the seconds counter after displaying the stop watch and
-		 * increment seconds by +1 to keep it counting */
-		seconds++;
+		return `${formatNumber(min)} : ${formatNumber(sec)}`;
 	}
 
-	//create a function to stop the time
-	function stopTimer() {
-		time = mins + secs;
-		// reset the stop watch
-		seconds = 0;
-		minutes = 0;
+	function displayElapsed(elem, start) {
+		const elapsedStr = formatElapsed(start);
+		elem.textContent = 'Time: ' + elapsedStr;
+	}
 
-		secs = '0' + seconds;
-		mins = '0' + minutes + ': ';
+	function startTimer(elem) {
+		const start = new Date();
 
+		displayElapsed(elem, start);
+
+		timer = setInterval(function() {
+			displayElapsed(elem, start);
+		}, 1000);
+
+		return start;
+	}
+
+	// return a string holding the amount of time the game took
+	function stopTimer(start) {
 		/* clear the stop watch using the setInterval( )
 		   return value 'timer' as ID */
 		clearInterval(timer);
-		return time;
+
+		return formatElapsed(start);
 	}
 
 	// Check to see if the user has a match
@@ -386,7 +189,7 @@ function playGame() {
 	}
 
 	function gameWon() {
-		winningTime = stopTimer();
+		const winningTime = stopTimer(gameStart);
 		$('#winnerMessage').empty();
 		$('#winnerMessage').append(
 			`You won the game!  You did it with:
@@ -426,22 +229,16 @@ function playGame() {
 	}
 
 	// Set up the Game
-	function startGame(array) {
-		displayCards(array);
+	function startGame(cardSet) {
+		displayCards(cardSet);
 		moveCounter = 0;
 		moves.text(`${moveCounter}`);
-		startTimer();
+		gameStart = startTimer(timerEl);
 
-		timer = setInterval(function() {
-			runTimer();
-		}, 1000);
-
-		if (starCount < maxStars) {
-			resetStars();
-		}
+		resetStars();
 	}
 
-	startGame(possibleCards);
+	startGame(Cards.baseCards);
 
 	// Close the winning modal.
 	closeModal.addEventListener('click', function() {
@@ -451,8 +248,7 @@ function playGame() {
 	// Start the next game from the winning modal.
 	nextGame.addEventListener('click', function() {
 		winDialog.close();
-		clearDeck();
-		startGame(possibleCards);
+		startGame(Cards.baseCards);
 	});
 
 	// Set up event listener for the deck
@@ -496,8 +292,7 @@ function playGame() {
 	});
 
 	restart.on('click', function() {
-		clearDeck();
-		startGame(possibleCards);
+		startGame(Cards.baseCards);
 	});
 }
 
